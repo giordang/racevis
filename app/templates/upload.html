@@ -9,5 +9,15 @@
                 Select .gpx file
             </h1>
         </div>
+
+        <div>
+        <form id="form" method='POST' action="{{ url_for('process') }}" enctype = "multipart/form-data">
+            <div>
+                <input type="file" value="" name="file">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+        </div>
+
     </body>
 </html>
