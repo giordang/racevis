@@ -7,87 +7,22 @@
 </head>
 
 <body>
+    <div id="pace_split_chart">
+    </div>
+
+    <div id="hr_split_chart">
+    </div>
 	
-<script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='chart.js') }}"></script>
+    <script type="text/javascript">
+        var paceSplitData = {{ data.splits_pace | safe }};
+        barSplitPace(paceSplitData, "#pace_split_chart");
 
-<script>
-    //adapted from http://bl.ocks.org/Jverma/887877fc5c2c2d99be10
-
-    //canvas dimensions
-    var margin = {top: 20, right: 20, bottom: 70, left: 40};
-    var width = 600 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
-
-
-    //ranges
-    var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-    var y = d3.scale.linear().range([height, 0]);
-
-    //axes
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
-
-    //SVG
-    var svg = d3.select("body")
-        .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    //load data
-    var graphData = {{ data.splits | safe }}
-    //console.log(graphData)
-
-    //function to draw graph
-    function drawGraph(data) {
-        data.forEach(function(d) {
-                d.Split = d.Split;
-                d.Pace = + d.Pace;
-            });
-	
-        //scale data range
-        x.domain(data.map(function(d) { return d.Split; }));
-        y.domain([0, d3.max(data, function(d) { return d.Pace; })]);
-
-        //add axis
-        svg.append("g")
-                .attr("class", "x axis")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis)
-            .selectAll("text")
-                .style("text-anchor", "end")
-                .attr("dx", "-.8em")
-                .attr("dy", "-.55em")
-                .attr("transform", "rotate(-90)" );
-
-        svg.append("g")
-                .attr("class", "y axis")
-                .call(yAxis)
-            .append("text")
-                .attr("transform", "rotate(-90)")
-                .attr("y", 5)
-                .attr("dy", ".71em")
-                .style("text-anchor", "end")
-
-        //add bars
-        svg.selectAll("bar")
-            .data(data)
-            .enter().append("rect")
-                .attr("class", "bar")
-                .attr("x", function(d) { return x(d.Split); })
-                .attr("width", x.rangeBand())
-                .attr("y", function(d) { return y(d.Pace); })
-                .attr("height", function(d) { return height - y(d.Pace); });
-    };
-
-    drawGraph(graphData);
-
-</script>
+        var hrSplitData = {{ data.splits_hr | safe }};
+        console.log(hrSplitData)
+        barSplitHR(hrSplitData, "#hr_split_chart");
+    </script>
 
 </body>
 </html>
