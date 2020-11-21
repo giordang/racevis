@@ -1,4 +1,5 @@
 import gpxpy
+import json
 import matplotlib.pyplot as plt
 import geopy.distance
 import numpy as np
@@ -85,4 +86,11 @@ def visfun(file):
 
     average_pace = df['pace'].mean()
 
-    return(average_pace)
+    midpoint = df['total_dist'].iloc[-1] / 2
+    split1_meanpace = df[df['total_dist'] < midpoint]['pace'].mean()
+    split2_meanpace = df[df['total_dist'] > midpoint]['pace'].mean()
+
+    splits_python = [{'Split': '1', 'Pace': split1_meanpace}, {'Split': '2', 'Pace': split2_meanpace}]
+    splits_json = json.dumps(splits_python)
+
+    return(splits_json)
