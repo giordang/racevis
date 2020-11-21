@@ -24,9 +24,7 @@ def process():
         if (allowed_file(f.filename)):
             filename = secure_filename(f.filename)
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            splits_json = vis.visfun(filename)
-            data = {'splits': splits_json}
-            #print(data)
+            data = vis.vis_fun(filename)
             clear_folder()
             return render_template('results.html', data=data)
         else:
