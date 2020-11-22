@@ -4,23 +4,76 @@
 
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="pace_split_chart">
-    </div>
+    <div id="vis_wrapper">
+        <div id="map">
+        </div>
 
-    <div id="hr_split_chart">
+        <div id="pace_split_chart">
+        </div>
+
+        <div id="hr_split_chart">
+        </div>
     </div>
 	
     <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script type="text/javascript" src="{{ url_for('static', filename='chart.js') }}"></script>
     <script type="text/javascript">
+
+        var mapCenter = {{data.map_center | safe}};
+        console.log(mapCenter);
+
+        var coords = {{data.coord | safe}};
+        console.log(coords)
+
+        //adapted from https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JlZ2dpb3IiLCJhIjoiY2todGlkbDcxMTJmcDJ4bWpmcmtkaTc3ciJ9.j5X2rKGeWuPYXETXGwoTKw';
+        var map = new mapboxgl.Map({
+            container: 'map', 
+            style: 'mapbox://styles/mapbox/streets-v11', 
+            center: [mapCenter[0].Lon, mapCenter[0].Lat],
+            zoom: 12 
+            });
+
+
+        map.on('load', function () {
+            map.addSource('route', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': coords
+                    }
+                }
+            });
+            map.addLayer({
+                'id': 'route',
+                'type': 'line',
+                'source': 'route',
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': '#888',
+                    'line-width': 8
+                }
+            });
+        });
+
         var paceSplitData = {{ data.splits_pace | safe }};
         barSplitPace(paceSplitData, "#pace_split_chart");
 
         var hrSplitData = {{ data.splits_hr | safe }};
-        console.log(hrSplitData)
+        console.log(hrSplitData);
         barSplitHR(hrSplitData, "#hr_split_chart");
     </script>
 

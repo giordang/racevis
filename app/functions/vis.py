@@ -113,7 +113,31 @@ def split_vis(df, data):
     splits_hr_json = json.dumps(splits_hr_python)
     data['splits_hr'] = splits_hr_json
 
-    print(data)
+    return(data)
+
+
+def map_vis(df, data):
+    lat_max = df['lat'].max()
+    lon_max = df['lon'].max()
+
+    lat_min = df['lat'].min()
+    lon_min = df['lon'].min()
+
+    lat_avg = (lat_max + lat_min) / 2
+    lon_avg = (lon_max + lon_min) / 2
+
+    map_center_python = [{'Lat': lat_avg, 'Lon': lon_avg}]
+    map_center_json = json.dumps(map_center_python)
+
+    data['map_center'] = map_center_json
+
+    coord_df = df[['lon', 'lat']].copy()
+    coords_python = [{'coords' : coord_df.values.tolist()}]
+    #coords_json = json.dumps(coords_python)
+    #print(coord_df.values)
+    #data['coord'] = coords_python
+
+    data['coord'] = coord_df.values.tolist()
 
     return(data)
 
@@ -126,5 +150,8 @@ def vis_fun(file):
     data = {}
 
     data = split_vis(df, data)
+    data = map_vis(df, data)
+
+    print(data)
 
     return(data)

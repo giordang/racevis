@@ -2,6 +2,7 @@ click==7.1.2
 cycler==0.10.0
 Flask==1.1.2
 geographiclib==1.50
+geojson==2.5.0
 geopy==2.0.0
 gpxpy==1.4.2
 itsdangerous==1.1.0

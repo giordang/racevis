@@ -35,6 +35,12 @@ def process():
         return render_template('upload.html')
 
 
+@app.route('/map')
+def mapbox_js():
+    return render_template(
+        'map.html', 
+        ACCESS_KEY='pk.eyJ1IjoiZ3JlZ2dpb3IiLCJhIjoiY2todGlkbDcxMTJmcDJ4bWpmcmtkaTc3ciJ9.j5X2rKGeWuPYXETXGwoTKw'
+    )
 
 
 def clear_folder():
