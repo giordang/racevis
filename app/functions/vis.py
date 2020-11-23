@@ -132,14 +132,22 @@ def map_vis(df, data):
     data['map_center'] = map_center_json
 
     coord_df = df[['lon', 'lat']].copy()
-    coords_python = [{'coords' : coord_df.values.tolist()}]
+    #coords_python = [{'coords' : coord_df.values.tolist()}]
     #coords_json = json.dumps(coords_python)
-    #print(coord_df.values)
     #data['coord'] = coords_python
 
-    data['coord'] = coord_df.values.tolist()
+    coords = coord_df.values.tolist()
+    data['coord'] = coords
 
     return(data)
+
+
+def alt_hr_pace_vis(df, data):
+    df_dist_index = df.set_index('total_dist')
+    alt_hr_pace_json = df_dist_index[['alt', 'hr', 'pace']].to_json(orient='records')
+    data['alt_hr_pace'] = alt_hr_pace_json
+
+    return data
 
 
 def vis_fun(file):
@@ -151,7 +159,8 @@ def vis_fun(file):
 
     data = split_vis(df, data)
     data = map_vis(df, data)
+    data = alt_hr_pace_vis(df, data)
 
-    print(data)
+    #print(data)
 
     return(data)

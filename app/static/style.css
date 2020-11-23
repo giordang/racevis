@@ -30,12 +30,17 @@ body {
     height: 40%;
 }
 
-#pace_split_chart {
+#alt_hr_pace_chart {
     position: absolute;
     top: 500px;
 }
 
-#hr_split_chart {
+#pace_split_chart {
     position: absolute;
     top: 800px;
+}
+
+#hr_split_chart {
+    position: absolute;
+    top: 1100px;
 }

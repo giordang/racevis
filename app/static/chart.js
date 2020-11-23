@@ -1,5 +1,10 @@
+    function lineAltHrPace(data, div){
+        console.log(data) 
+    };
+    
+    
+    
     //adapted from http://bl.ocks.org/Jverma/887877fc5c2c2d99be10
-
     function barSplitPace(data, div) {
         //canvas dimensions
         var margin = {top: 20, right: 20, bottom: 70, left: 40};

@@ -13,6 +13,9 @@
     <div id="vis_wrapper">
         <div id="map">
         </div>
+        
+        <div id="alt_hr_pace_chart">
+        </div>
 
         <div id="pace_split_chart">
         </div>
@@ -27,10 +30,7 @@
     <script type="text/javascript">
 
         var mapCenter = {{data.map_center | safe}};
-        console.log(mapCenter);
-
         var coords = {{data.coord | safe}};
-        console.log(coords)
 
         //adapted from https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JlZ2dpb3IiLCJhIjoiY2todGlkbDcxMTJmcDJ4bWpmcmtkaTc3ciJ9.j5X2rKGeWuPYXETXGwoTKw';
@@ -69,12 +69,17 @@
             });
         });
 
+        var altHrPaceData = {{ data.alt_hr_pace | safe}};
+        console.log(altHrPaceData);
+        lineAltHrPace(altHrPaceData, "#alt_hr_pace_chart");
+
         var paceSplitData = {{ data.splits_pace | safe }};
         barSplitPace(paceSplitData, "#pace_split_chart");
 
         var hrSplitData = {{ data.splits_hr | safe }};
         console.log(hrSplitData);
         barSplitHR(hrSplitData, "#hr_split_chart");
+
     </script>
 
 </body>
