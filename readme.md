@@ -1,3 +1,8 @@
+# Background
+The purpose of this project is to visualize running data from .gpx files.
+
+#######################################
+
 # Clone github repo
 git clone https://github.com/giordang/racevis.git
 
