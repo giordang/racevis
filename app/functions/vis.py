@@ -151,6 +151,25 @@ def alt_hr_pace_vis(df, data):
     return data
 
 
+def summary_stats(df, data):
+    avg_pace = round(df['pace'].mean(),2)
+    data['avg_pace'] = avg_pace
+
+    avg_hr = round(df['hr'].mean(),2)
+    data['avg_hr'] = avg_hr
+
+    total_distance = round(df['total_dist'].max(),2)
+    data['total_distance'] = total_distance
+
+    total_time_string = str(df['time'].max() - df['time'].min()).split('days')[1].strip()
+    data['total_time'] = total_time_string
+
+    total_gain = round(df['total_gain'].max(),2)
+    data['total_gain'] = total_gain
+
+    return(data)
+
+
 def vis_fun(file):
     df = make_df(file)
     #df_time_index = df.set_index('time')
@@ -161,6 +180,7 @@ def vis_fun(file):
     data = split_vis(df, data)
     data = map_vis(df, data)
     data = alt_hr_pace_vis(df, data)
+    data = summary_stats(df, data)
 
     #print(data)
 

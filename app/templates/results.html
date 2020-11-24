@@ -10,6 +10,16 @@
 </head>
 
 <body>
+    <div id="list_wrapper">
+        <ul id="summary_stat_list">
+            <li>{{ data.total_time | safe }}</li>
+            <li>{{ data.total_distance | safe }}</li>
+            <li>{{ data.avg_pace | safe }}</li>
+            <li>{{ data.avg_hr | safe }}</li>
+            <li>{{ data.total_gain | safe }}</li>
+        </ul>
+    </div>
+
     <div id="vis_wrapper">
         <div id="map">
         </div>
