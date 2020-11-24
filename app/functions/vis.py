@@ -176,6 +176,9 @@ def vis_fun(file):
     #df_dist_index = df.set_index('total_dist')
 
     data = {}
+    
+    title = file.replace('.gpx','').replace('_',' ')
+    data['title'] = title
 
     data = split_vis(df, data)
     data = map_vis(df, data)
