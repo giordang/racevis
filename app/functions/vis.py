@@ -143,8 +143,9 @@ def map_vis(df, data):
 
 
 def alt_hr_pace_vis(df, data):
-    df_dist_index = df.set_index('total_dist')
-    alt_hr_pace_json = df_dist_index[['alt', 'hr', 'pace']].to_json(orient='records')
+    #df_dist_index = df.set_index('total_dist')
+    #alt_hr_pace_json = df_dist_index[['alt', 'hr', 'pace']].to_json(orient='records')
+    alt_hr_pace_json = df[['total_dist', 'alt', 'hr', 'pace']].to_json(orient='records')
     data['alt_hr_pace'] = alt_hr_pace_json
 
     return data

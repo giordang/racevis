@@ -28,7 +28,7 @@
     <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
     <script type="text/javascript" src="{{ url_for('static', filename='chart.js') }}"></script>
     <script type="text/javascript">
-
+        
         var mapCenter = {{data.map_center | safe}};
         var coords = {{data.coord | safe}};
 
@@ -68,6 +68,7 @@
                 }
             });
         });
+    
 
         var altHrPaceData = {{ data.alt_hr_pace | safe}};
         console.log(altHrPaceData);
