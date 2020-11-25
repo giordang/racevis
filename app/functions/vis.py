@@ -225,6 +225,42 @@ def hr_dist(df, data):
     return(data)
 
 
+def getAltChange(alt_list):
+    change = 0
+    list_len = len(alt_list)
+    
+    for i in range(list_len):
+        if (i < list_len - 1):
+            change = change + alt_list[i + 1] - alt_list[i]  
+    return(change)
+
+
+def split_table(df, data):
+    max_dist = df['total_dist'].max()
+
+    splits_df = pd.DataFrame(columns=['mile', 'pace', 'hr', 'alt'])
+
+    for i in np.arange(0, max_dist):
+        split = df[(df['total_dist'] >= i) & (df['total_dist'] < i + 1) ]
+        mile = i + 1
+        split_pace = split['pace'].mean()
+        split_hr = split['hr'].mean()
+        split_alt = getAltChange(split['alt'].to_list())
+        
+        if(mile > max_dist):
+            mile = max_dist - i
+        
+        new_row = {'mile': mile, 'pace': split_pace, 'hr': split_hr, 'alt': split_alt}
+        splits_df = splits_df.append(new_row, ignore_index = True)
+        
+    splits_df = splits_df.round(2)
+
+    splits_data_json = splits_df.to_json(orient='records')
+    data['split_table'] = splits_data_json
+
+    return(data)
+
+
 def vis_fun(file):
     df = make_df(file)
     #df_time_index = df.set_index('time')
@@ -241,7 +277,7 @@ def vis_fun(file):
     data = summary_stats(df, data)
     data = pace_dist(df, data)
     data = hr_dist(df, data)
-
+    data = split_table(df, data)
     #print(data)
 
     return(data)

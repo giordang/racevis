@@ -35,24 +35,29 @@ body {
     top: 700px;
 }
 
-#pace_split_chart {
+#split_table {
     position: absolute;
     top: 1000px;
 }
 
-#hr_split_chart {
+#pace_split_chart {
     position: absolute;
     top: 1300px;
 }
 
-#pace_dist_chart{
+#hr_split_chart {
     position: absolute;
     top: 1600px;
 }
 
-#hr_dist_chart{
+#pace_dist_chart{
     position: absolute;
     top: 2100px;
+}
+
+#hr_dist_chart{
+    position: absolute;
+    top: 2600px;
 }
 
 path { 

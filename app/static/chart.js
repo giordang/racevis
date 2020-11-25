@@ -1,3 +1,37 @@
+function splitTable(data, div){
+    //console.log(d);
+    let table = document.querySelector("table");
+    let thData = Object.keys(data[0]);
+
+    let tHead = table.createTHead();
+    let row = tHead.insertRow();
+    for (let key of thData){
+        let th = document.createElement("th");
+        let text = document.createTextNode(key);
+        th.appendChild(text);
+        row.appendChild(th);
+    }
+
+    for (let element of data){
+        let row = table.insertRow();
+        for (key in element){
+            let cell = row.insertCell();
+            let text = document.createTextNode(element[key]);
+            cell.appendChild(text);
+        }
+    }
+
+};
+
+
+  
+  //let table = document.querySelector("table");
+  //let data = Object.keys(mountains[0]);
+  //generateTableHead(table, data);
+  //generateTable(table, mountains);
+
+
+
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function hrDist(data, div){
     console.log(data);
@@ -33,7 +67,7 @@ function hrDist(data, div){
         })
         .attr('transform', 'translate(0, 0)')
 
-}
+};
 
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function paceDist(data, div){
@@ -70,7 +104,7 @@ function paceDist(data, div){
         })
         .attr('transform', 'translate(0, 0)')
 
-}
+};
 
 //adapted from https://bl.ocks.org/uredkar/71c3a0d93cc05527c83cdc12f9549ab3
 function lineAltHrPace(data, div){

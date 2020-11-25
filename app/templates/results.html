@@ -29,6 +29,12 @@
         <div id="alt_hr_pace_chart">
         </div>
 
+        <div id="split_table">
+            <table>
+                
+            </table>
+        </div>
+
         <div id="pace_split_chart">
         </div>
 
@@ -104,6 +110,10 @@
 
         var hrDistData = {{ data.hr_dist | safe}};
         hrDist(hrDistData, "#hr_dist_chart");
+
+        var splitTableData = {{data.split_table | safe}};
+        splitTable(splitTableData, "split_table");
+
 
     </script>
 
