@@ -1,5 +1,6 @@
 import gpxpy
 import json
+import math
 import matplotlib.pyplot as plt
 import geopy.distance
 import numpy as np
@@ -170,6 +171,60 @@ def summary_stats(df, data):
     return(data)
 
 
+def pace_dist(df, data):
+    min_pace = df['pace'].min()
+    max_pace = df['pace'].max()
+
+    min_pace_round = round(min_pace*2)/2
+    max_pace_round = round(max_pace*2)/2
+
+    if min_pace_round < 0.5:
+        min_pace_round = 0.0
+    else:
+        min_pace_round = min_pace_round - 0.5
+
+    pace_df = pd.DataFrame(columns=['pace', 'count'])
+
+    for i in np.arange(min_pace_round, max_pace_round + 0.51, 0.5):
+        bucket_length = len(df[(df['pace'] >= i) & (df['pace'] < i + 0.5)])
+        if (bucket_length >= 10):
+            new_row = {'pace': str(i) +':' + str(i+0.5), 'count':bucket_length}
+            #pace_data[str(i) +':' + str(i+0.5)] = bucket_length
+            pace_df = pace_df.append(new_row, ignore_index=True)
+
+    pace_count_sum = pace_df['count'].sum()
+    pace_df['percentage'] = (pace_df['count'] / pace_count_sum) * 100
+    pace_df['percentage'] = pace_df['percentage'].astype('float').round(2)
+    pace_data_json = pace_df[['pace', 'percentage']].to_json(orient='records')
+
+    data['pace_dist'] = pace_data_json
+
+    return(data)
+
+
+def hr_dist(df, data):
+    max_hr = df['hr'].max()
+
+    max_hr_round = int(math.ceil(max_hr / 10.0)) * 10
+
+    hr_df = pd.DataFrame(columns=['hr', 'count'])
+
+    for i in range(0, max_hr_round, 10):
+        bucket_length = len(df[(df['hr'] >= i) & (df['hr'] < i + 10)])
+        if (bucket_length >= 10):
+            new_row = {'hr': str(i) +':' + str(i+10), 'count':bucket_length}
+            hr_df = hr_df.append(new_row, ignore_index=True)
+
+    hr_count_sum = hr_df['count'].sum()
+    hr_df['percentage'] = (hr_df['count'] / hr_count_sum) * 100
+    hr_df['percentage'] = hr_df['percentage'].astype('float').round(2)
+    hr_data_json = hr_df[['hr', 'percentage']].to_json(orient='records')
+
+    data['hr_dist'] = hr_data_json
+
+    return(data)
+
+
 def vis_fun(file):
     df = make_df(file)
     #df_time_index = df.set_index('time')
@@ -184,6 +239,8 @@ def vis_fun(file):
     data = map_vis(df, data)
     data = alt_hr_pace_vis(df, data)
     data = summary_stats(df, data)
+    data = pace_dist(df, data)
+    data = hr_dist(df, data)
 
     #print(data)
 

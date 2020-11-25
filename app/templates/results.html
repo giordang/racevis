@@ -34,6 +34,12 @@
 
         <div id="hr_split_chart">
         </div>
+
+        <div id="pace_dist_chart">
+        </div>
+
+        <div id="hr_dist_chart">
+        </div>
     </div>
 	
     <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -83,15 +89,21 @@
     
 
         var altHrPaceData = {{ data.alt_hr_pace | safe}};
-        console.log(altHrPaceData);
+        //console.log(altHrPaceData);
         lineAltHrPace(altHrPaceData, "#alt_hr_pace_chart");
 
         var paceSplitData = {{ data.splits_pace | safe }};
         barSplitPace(paceSplitData, "#pace_split_chart");
 
         var hrSplitData = {{ data.splits_hr | safe }};
-        console.log(hrSplitData);
+        //console.log(hrSplitData);
         barSplitHR(hrSplitData, "#hr_split_chart");
+
+        var paceDistData = {{ data.pace_dist | safe}};
+        paceDist(paceDistData, "#pace_dist_chart");
+
+        var hrDistData = {{ data.hr_dist | safe}};
+        hrDist(hrDistData, "#hr_dist_chart");
 
     </script>
 

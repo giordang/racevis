@@ -45,7 +45,15 @@ body {
     top: 1300px;
 }
 
+#pace_dist_chart{
+    position: absolute;
+    top: 1600px;
+}
 
+#hr_dist_chart{
+    position: absolute;
+    top: 2100px;
+}
 
 path { 
     stroke: steelblue;
