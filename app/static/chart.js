@@ -1,5 +1,4 @@
 function splitTable(data, div){
-    //console.log(d);
     let table = document.querySelector("table");
     let thData = Object.keys(data[0]);
 
@@ -24,18 +23,8 @@ function splitTable(data, div){
 };
 
 
-  
-  //let table = document.querySelector("table");
-  //let data = Object.keys(mountains[0]);
-  //generateTableHead(table, data);
-  //generateTable(table, mountains);
-
-
-
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function hrDist(data, div){
-    console.log(data);
-
     var width = 360;
     var height = 360;
     var radius = Math.min(width, height) / 2;
@@ -71,8 +60,6 @@ function hrDist(data, div){
 
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function paceDist(data, div){
-    console.log(data);
-
     var width = 360;
     var height = 360;
     var radius = Math.min(width, height) / 2;
@@ -108,8 +95,6 @@ function paceDist(data, div){
 
 //adapted from https://bl.ocks.org/uredkar/71c3a0d93cc05527c83cdc12f9549ab3
 function lineAltHrPace(data, div){
-    //console.log(data) 
-
     var label = d3.select(div);
 
     var margin = {top: 20, right: 20, bottom: 70, left: 40};
