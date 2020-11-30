@@ -81,28 +81,6 @@
                     }
                 }
             });
-            /*
-            map.addSource('points', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'FeatureCollection',
-                    'features': [
-                        {
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'Point',
-                                'coordinates': [
-                                    start
-                                ]
-                            },
-                            'properties': {
-                                'title': 'Start'
-                            }
-                        }
-                    ]
-                }
-            });
-            */
             map.addLayer({
                 'id': 'route',
                 'type': 'line',
@@ -116,24 +94,6 @@
                     'line-width': 8
                 }
             });
-            /*
-            map.addLayer({
-                'id': 'points',
-                'type': 'symbol',
-                'source': 'points',
-                'layout': {
-                    //'icon-image': 'custom-marker',
-                    'text-field': ['get', 'title'],
-                    'text-font': [
-                    'Open Sans Semibold',
-                    'Arial Unicode MS Bold'
-                ],
-                'text-offset': [0, 1.25],
-                'text-anchor': 'top'
-                }
-                });
-
-                */
         });
         
         var geojson = {
@@ -175,32 +135,13 @@
             .setLngLat(finish)
             .addTo(map);
 
-/*
-        // add markers to map
-        geojson.features.forEach(function(marker) {
-
-            // create a HTML element for each feature
-            var el = document.createElement('div');
-            el.className = 'marker';
-
-            // make a marker for each feature and add to the map
-            new mapboxgl.Marker(el)
-            .setLngLat(marker.geometry.coordinates)
-            .addTo(map);
-            */
-        //});
-    
-    
-
         var altHrPaceData = {{ data.alt_hr_pace | safe}};
-        //console.log(altHrPaceData);
         lineAltHrPace(altHrPaceData, "#alt_hr_pace_chart");
 
         var paceSplitData = {{ data.splits_pace | safe }};
         barSplitPace(paceSplitData, "#pace_split_chart");
 
         var hrSplitData = {{ data.splits_hr | safe }};
-        //console.log(hrSplitData);
         barSplitHR(hrSplitData, "#hr_split_chart");
 
         var paceDistData = {{ data.pace_dist | safe}};
