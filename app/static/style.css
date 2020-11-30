@@ -1,3 +1,15 @@
+#row_1 {
+    display: flex;
+    align-items: center;
+}
+
+#row_1 li {
+    float: left;
+    display: block;
+    padding: 16px;
+}
+
+
 .bar{
     fill: steelblue;
 }

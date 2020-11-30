@@ -8,18 +8,23 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
 
-    <h1>{{data.title | safe}}</h1>
 </head>
 
 <body>
-    <div id="list_wrapper">
-        <ul id="summary_stat_list">
-            <li>{{ data.total_time | safe }}</li>
-            <li>{{ data.total_distance | safe }}</li>
-            <li>{{ data.avg_pace | safe }}</li>
-            <li>{{ data.avg_hr | safe }}</li>
-            <li>{{ data.total_gain | safe }}</li>
-        </ul>
+    <div id="row_1">
+        <h1>{{data.title | safe}}</h1>
+
+        <div id="list_wrapper">
+            <ul id="summary_stat_list_row1">
+                <li>{{ data.total_time | safe }}</li>
+                <li>{{ data.total_distance | safe }}</li>
+                <li>{{ data.avg_pace | safe }}</li>
+            </ul>
+            <ul id="summary_stat_list_row2">
+                <li>{{ data.avg_hr | safe }}</li>
+                <li>{{ data.total_gain | safe }}</li>
+            </ul>
+        </div>
     </div>
 
     <div id="vis_wrapper">
