@@ -55,6 +55,9 @@
         
         var mapCenter = {{data.map_center | safe}};
         var coords = {{data.coord | safe}};
+        var start = {{data.start | safe}};
+        var finish = {{data.finish | safe}};
+        console.log(start, finish);
 
         //adapted from https://docs.mapbox.com/mapbox-gl-js/example/geojson-line/
         mapboxgl.accessToken = 'pk.eyJ1IjoiZ3JlZ2dpb3IiLCJhIjoiY2todGlkbDcxMTJmcDJ4bWpmcmtkaTc3ciJ9.j5X2rKGeWuPYXETXGwoTKw';
@@ -78,6 +81,28 @@
                     }
                 }
             });
+            /*
+            map.addSource('points', {
+                'type': 'geojson',
+                'data': {
+                    'type': 'FeatureCollection',
+                    'features': [
+                        {
+                            'type': 'Feature',
+                            'geometry': {
+                                'type': 'Point',
+                                'coordinates': [
+                                    start
+                                ]
+                            },
+                            'properties': {
+                                'title': 'Start'
+                            }
+                        }
+                    ]
+                }
+            });
+            */
             map.addLayer({
                 'id': 'route',
                 'type': 'line',
@@ -91,7 +116,80 @@
                     'line-width': 8
                 }
             });
+            /*
+            map.addLayer({
+                'id': 'points',
+                'type': 'symbol',
+                'source': 'points',
+                'layout': {
+                    //'icon-image': 'custom-marker',
+                    'text-field': ['get', 'title'],
+                    'text-font': [
+                    'Open Sans Semibold',
+                    'Arial Unicode MS Bold'
+                ],
+                'text-offset': [0, 1.25],
+                'text-anchor': 'top'
+                }
+                });
+
+                */
         });
+        
+        var geojson = {
+            type: 'FeatureCollection',
+            features: [{
+                type: 'Feature',
+                geometry: {
+                type: 'Point',
+                coordinates: start
+                },
+                properties: {
+                title: 'Mapbox',
+                description: 'Start',
+                }
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                type: 'Point',
+                coordinates: finish
+                },
+                properties: {
+                title: 'Mapbox',
+                description: 'Finish'
+                }
+            }]
+        };
+
+        
+        var startEl = document.createElement('div');
+        startEl.className = 'startMarker'
+        new mapboxgl.Marker(startEl)
+            .setLngLat(start)
+            .addTo(map);
+        
+        var stopEl = document.createElement('div');
+        stopEl.className = 'stopMarker'
+        new mapboxgl.Marker(stopEl)
+            .setLngLat(finish)
+            .addTo(map);
+
+/*
+        // add markers to map
+        geojson.features.forEach(function(marker) {
+
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+            .setLngLat(marker.geometry.coordinates)
+            .addTo(map);
+            */
+        //});
+    
     
 
         var altHrPaceData = {{ data.alt_hr_pace | safe}};
