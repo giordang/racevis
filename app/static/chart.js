@@ -98,8 +98,8 @@ function lineAltHrPace(data, div){
     var label = d3.select(div);
 
     var margin = {top: 20, right: 20, bottom: 70, left: 40};
-    var width = 600 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    var width = 800 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
     
     var x = d3.scale.linear().range([0, width]);
     var y0 = d3.scale.linear().range([height, 0]);

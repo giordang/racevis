@@ -11,46 +11,39 @@
 </head>
 
 <body>
-    <div id="row_1">
+    <div id="row_title_sum">
         <h1>{{data.title | safe}}</h1>
-
-        <div id="list_wrapper">
-            <ul id="summary_stat_list_row1">
-                <li>{{ data.total_time | safe }}</li>
-                <li>{{ data.total_distance | safe }}</li>
-                <li>{{ data.avg_pace | safe }}</li>
-            </ul>
-            <ul id="summary_stat_list_row2">
-                <li>{{ data.avg_hr | safe }}</li>
-                <li>{{ data.total_gain | safe }}</li>
-            </ul>
-        </div>
+        <ul>
+            <li>Time: {{ data.total_time | safe }}</li>
+            <li>Distance: {{ data.total_distance | safe }} mi</li>
+            <li>Pace: {{ data.avg_pace | safe }} min/mi</li>
+            <br>
+            <li>Average Heart Rate: {{ data.avg_hr | safe }} bpm</li>
+            <li>Elevation Gain: {{ data.total_gain | safe }} m</li>
+        </ul>
     </div>
 
-    <div id="vis_wrapper">
-        <div id="map">
-        </div>
-        
-        <div id="alt_hr_pace_chart">
-        </div>
+    <div id="map">
+    </div>
+    
+    <div id="alt_hr_pace_chart">
+    </div>
 
-        <div id="split_table">
-            <table>
-                
-            </table>
-        </div>
+    <div id="split_table">
+        <table>
+        </table>
+    </div>
 
-        <div id="pace_split_chart">
-        </div>
+    <div id="pace_split_chart">
+    </div>
 
-        <div id="hr_split_chart">
-        </div>
+    <div id="hr_split_chart">
+    </div>
 
-        <div id="pace_dist_chart">
-        </div>
+    <div id="pace_dist_chart">
+    </div>
 
-        <div id="hr_dist_chart">
-        </div>
+    <div id="hr_dist_chart">
     </div>
 	
     <script src="https://d3js.org/d3.v3.min.js"></script>
