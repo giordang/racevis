@@ -25,8 +25,8 @@ function splitTable(data, div){
 
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function hrDist(data, div){
-    var width = 360;
-    var height = 360;
+    var width = 350;
+    var height = 350;
     var radius = Math.min(width, height) / 2;
     var donutWidth = 75; 
 
@@ -60,8 +60,8 @@ function hrDist(data, div){
 
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function paceDist(data, div){
-    var width = 360;
-    var height = 360;
+    var width = 350;
+    var height = 350;
     var radius = Math.min(width, height) / 2;
     var donutWidth = 75; 
 
@@ -204,8 +204,8 @@ function lineAltHrPace(data, div){
 function barSplitPace(data, div) {
     //canvas dimensions
     var margin = {top: 20, right: 20, bottom: 70, left: 40};
-    var width = 600 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    var width = 350 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
 
 
     //ranges
@@ -263,19 +263,42 @@ function barSplitPace(data, div) {
     svg.selectAll("bar")
         .data(data)
         .enter().append("rect")
+            .on("mouseover", d => mouseover(d))
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout)
             .attr("class", "bar")
             .attr("x", function(d) { return x(d.Split); })
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.Pace); })
             .attr("height", function(d) { return height - y(d.Pace); });
+
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("display", "none");
+        
+        function mouseover(d) {
+            div.style("display", "inline");
+            div.text(d.Pace)
+        }
+            
+        function mousemove() {
+            div
+                .style("left", (d3.event.pageX - 34) + "px")
+                .style("top", (d3.event.pageY - 12) + "px");
+        }
+            
+        function mouseout() {
+            div.style("display", "none");
+        
+        }
 };
 
 
 function barSplitHR(data, div) {
     //canvas dimensions
     var margin = {top: 20, right: 20, bottom: 70, left: 40};
-    var width = 600 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    var width = 350 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
 
 
     //ranges
@@ -333,9 +356,32 @@ function barSplitHR(data, div) {
     svg.selectAll("bar")
         .data(data)
         .enter().append("rect")
+            .on("mouseover", d => mouseover(d))
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout)
             .attr("class", "bar")
             .attr("x", function(d) { return x(d.Split); })
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.HR); })
             .attr("height", function(d) { return height - y(d.HR); });
+
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("display", "none");
+    
+    function mouseover(d) {
+        div.style("display", "inline");
+        div.text(d.HR)
+    }
+        
+    function mousemove() {
+        div
+            .style("left", (d3.event.pageX - 34) + "px")
+            .style("top", (d3.event.pageY - 12) + "px");
+    }
+        
+    function mouseout() {
+        div.style("display", "none");
+    
+    }
 };

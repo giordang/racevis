@@ -102,14 +102,14 @@ def make_df(f):
 def split_vis(df, data):
     midpoint = df['total_dist'].iloc[-1] / 2
 
-    split1_meanpace = df[df['total_dist'] < midpoint]['pace'].mean()
-    split2_meanpace = df[df['total_dist'] > midpoint]['pace'].mean()
+    split1_meanpace = round(df[df['total_dist'] < midpoint]['pace'].mean(),2)
+    split2_meanpace = round(df[df['total_dist'] > midpoint]['pace'].mean(),2)
     splits_pace_python = [{'Split': '1', 'Pace': split1_meanpace}, {'Split': '2', 'Pace': split2_meanpace}]
     splits_pace_json = json.dumps(splits_pace_python)
     data['splits_pace'] = splits_pace_json
 
-    split1_meanhr = df[df['total_dist'] < midpoint]['hr'].mean()
-    split2_meanhr = df[df['total_dist'] > midpoint]['hr'].mean()
+    split1_meanhr = round(df[df['total_dist'] < midpoint]['hr'].mean(),2)
+    split2_meanhr = round(df[df['total_dist'] > midpoint]['hr'].mean(),2)
     splits_hr_python = [{'Split': '1', 'HR': split1_meanhr}, {'Split': '2', 'HR': split2_meanhr}]
     splits_hr_json = json.dumps(splits_hr_python)
     data['splits_hr'] = splits_hr_json

@@ -19,16 +19,108 @@
     margin: auto;
 }
 
+.startMarker {
+    background-image: url('/static/green-circle-stroked-11.svg');
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .stopMarker {
+    background-image: url('/static/red-circle-stroked-11.svg');
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
 #alt_hr_pace_chart {
     width: 80%;
     height: auto;
     margin: auto;
 }
 
-svg{
+svg {
     display: block;
     margin: auto;
 }
+
+#split_table {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+  
+tr:hover {
+    background-color: #ddd;
+}
+  
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #ef0195;
+    color: white;
+}
+
+#row_split_charts {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+#pace_split_chart {
+    width: 50%;
+}
+
+#hr_split_chart {
+    width: 50%;
+}
+
+#row_dist_charts {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+#pace_dist_chart {
+    width: 50%;
+}
+
+#hr_dist_chart {
+    width: 50%;
+}
+
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 12px;
+    padding: 8px;
+    margin-top: -20px;
+    font: 10px sans-serif;
+    background: #ddd;
+    pointer-events: none;
+  }
+
 
 .bar{
     fill: steelblue;
@@ -47,31 +139,6 @@ svg{
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
-}
-
-#split_table {
-    position: absolute;
-    top: 1000px;
-}
-
-#pace_split_chart {
-    position: absolute;
-    top: 1300px;
-}
-
-#hr_split_chart {
-    position: absolute;
-    top: 1600px;
-}
-
-#pace_dist_chart{
-    position: absolute;
-    top: 2100px;
-}
-
-#hr_dist_chart{
-    position: absolute;
-    top: 2600px;
 }
 
 path { 
@@ -95,22 +162,4 @@ path {
   circle {
       cursor: pointer;
       fill: steelblue;
-  }
-
-  .startMarker {
-    background-image: url('/static/green-circle-stroked-11.svg');
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  .stopMarker {
-    background-image: url('/static/red-circle-stroked-11.svg');
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
   }
