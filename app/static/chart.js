@@ -203,7 +203,7 @@ function lineAltHrPace(data, div){
 //adapted from http://bl.ocks.org/Jverma/887877fc5c2c2d99be10
 function barSplitPace(data, div) {
     //canvas dimensions
-    var margin = {top: 20, right: 20, bottom: 70, left: 40};
+    var margin = {top: 20, right: 20, bottom: 70, left: 60};
     var width = 350 - margin.left - margin.right;
     var height = 350 - margin.top - margin.bottom;
 
@@ -271,32 +271,39 @@ function barSplitPace(data, div) {
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.Pace); })
             .attr("height", function(d) { return height - y(d.Pace); });
+    
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", -40)
+        .attr("x", -55)
+        .attr("transform", "rotate(-90)")
+        .text("Average Pace (min/mile)");
 
-        var div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("display", "none");
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("display", "none");
+    
+    function mouseover(d) {
+        div.style("display", "inline");
+        div.text(d.Pace)
+    }
         
-        function mouseover(d) {
-            div.style("display", "inline");
-            div.text(d.Pace)
-        }
-            
-        function mousemove() {
-            div
-                .style("left", (d3.event.pageX - 34) + "px")
-                .style("top", (d3.event.pageY - 12) + "px");
-        }
-            
-        function mouseout() {
-            div.style("display", "none");
+    function mousemove() {
+        div
+            .style("left", (d3.event.pageX - 34) + "px")
+            .style("top", (d3.event.pageY - 12) + "px");
+    }
         
-        }
+    function mouseout() {
+        div.style("display", "none");
+    }
 };
 
 
 function barSplitHR(data, div) {
     //canvas dimensions
-    var margin = {top: 20, right: 20, bottom: 70, left: 40};
+    var margin = {top: 20, right: 20, bottom: 70, left: 60};
     var width = 350 - margin.left - margin.right;
     var height = 350 - margin.top - margin.bottom;
 
@@ -364,6 +371,14 @@ function barSplitHR(data, div) {
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.HR); })
             .attr("height", function(d) { return height - y(d.HR); });
+
+    svg.append("text")
+        .attr("class", "y label")
+        .attr("text-anchor", "end")
+        .attr("y", -40)
+        .attr("x", -45)
+        .attr("transform", "rotate(-90)")
+        .text("Average Heart Rate (bpm)");
 
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
