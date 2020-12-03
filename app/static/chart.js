@@ -147,16 +147,16 @@ function lineAltHrPace(data, div){
     y2.domain(d3.extent(data, function(d) { return d.pace; }));
     
     svg.append("path")		
-        .attr("class", "line")
-        .attr("d", valueline0(data));
+        .attr("class", "line_alt")
+        .attr("d", valueline0(data)); //altitude
     
     svg.append("path")		
-        .attr("class", "line")
-        .attr("d", valueline1(data));
+        .attr("class", "line_hr")
+        .attr("d", valueline1(data)); //hr
 
     svg.append("path")		
-        .attr("class", "line")
-        .attr("d", valueline2(data));
+        .attr("class", "line_pace")
+        .attr("d", valueline2(data)); //pace
     
     /*
     svg		

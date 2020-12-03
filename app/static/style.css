@@ -26,16 +26,16 @@
     height: 20px;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
 
-  .stopMarker {
+.stopMarker {
     background-image: url('/static/red-circle-stroked-11.svg');
     background-size: cover;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     cursor: pointer;
-  }
+}
 
 #alt_hr_pace_chart {
     width: 80%;
@@ -64,7 +64,7 @@ td, th {
     padding: 8px;
 }
   
-tr:nth-child(even){
+tr:nth-child(even) {
     background-color: #f2f2f2;
 }
   
@@ -119,7 +119,7 @@ th {
     font: 10px sans-serif;
     background: #ddd;
     pointer-events: none;
-  }
+}
 
 
 .bar{
@@ -141,25 +141,36 @@ th {
     shape-rendering: crispEdges;
 }
 
-path { 
-    stroke: steelblue;
+path {
       stroke-width: 2;
       fill: none;
-  }
+}
   
-  .axis path,
-  .axis line {
+.axis path,
+.axis line {
       fill: none;
       stroke: grey;
       stroke-width: 1;
       shape-rendering: crispEdges;
-  }
+}
   
-  .label {
+.label {
       position:absolute;
-  }
+}
   
-  circle {
+circle {
       cursor: pointer;
       fill: steelblue;
-  }
+}
+
+.line_pace {
+    stroke: steelblue;
+}
+
+.line_hr {
+    stroke: tomato;
+}
+
+.line_alt {
+    stroke: gray;
+}
