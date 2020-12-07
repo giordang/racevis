@@ -30,7 +30,9 @@ function hrDist(data, div){
     var radius = Math.min(width, height) / 2;
     var donutWidth = 75; 
 
-    var color = d3.scale.ordinal(d3.schemeCategory20c);
+    var color = d3.scale.ordinal()
+        .domain(data)
+        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
 
     var svg = d3.select(div)
         .append('svg')
@@ -51,7 +53,7 @@ function hrDist(data, div){
         .enter()
         .append('path')
         .attr('d', arc)
-        .attr('fill', function (d, i) {
+        .attr('fill', function (d) {
              return color(d.data.hr);
         })
         .attr('transform', 'translate(0, 0)')
@@ -65,7 +67,9 @@ function paceDist(data, div){
     var radius = Math.min(width, height) / 2;
     var donutWidth = 75; 
 
-    var color = d3.scale.ordinal(d3.schemeCategory20c);
+    var color = d3.scale.ordinal()
+        .domain(data)
+        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
 
     var svg = d3.select(div)
         .append('svg')

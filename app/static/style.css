@@ -143,8 +143,19 @@ th {
 
 path {
     stroke: #ef0195;
-      stroke-width: 2;
-      fill: none;
+    stroke-width: 2;
+}
+
+.line_alt {
+    fill: none;
+}
+
+.line_hr {
+    fill: none;
+}
+
+.line_pace {
+    fill: none;
 }
   
 .axis path,
