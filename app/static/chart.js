@@ -368,7 +368,8 @@ function barSplitPace(data, div) {
 
     //scale data range
     x.domain(data.map(function(d) { return d.Split; }));
-    y.domain([0, d3.max(data, function(d) { return d.Pace; })]);
+    //y.domain([0, d3.max(data, function(d) { return d.Pace; })]);
+    y.domain([d3.min(data, function(d) { return d.Pace; }) - 0.5, d3.max(data, function(d) { return d.Pace; }) + 0.2]);
 
     //add axis
     svg.append("g")
@@ -468,7 +469,7 @@ function barSplitHR(data, div) {
 
     //scale data range
     x.domain(data.map(function(d) { return d.Split; }));
-    y.domain([0, d3.max(data, function(d) { return d.HR; })]);
+    y.domain([d3.min(data, function(d) { return d.HR; }) - 10, d3.max(data, function(d) { return d.HR; }) + 5]);
 
     //add axis
     svg.append("g")

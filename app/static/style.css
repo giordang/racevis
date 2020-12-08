@@ -146,6 +146,14 @@ path {
     stroke-width: 2;
 }
 
+#pace_dist_chart path:hover{
+    fill: brown;
+}
+
+#hr_dist_chart path:hover{
+    fill: brown;
+}
+
 .line_alt {
     fill: none;
 }
