@@ -182,10 +182,13 @@ def pace_dist(df, data):
 
     pace_df = pd.DataFrame(columns=['pace', 'count'])
 
+    total_len = len(df)
+
     for i in np.arange(min_pace_round, max_pace_round + 0.51, 0.5):
         bucket_length = len(df[(df['pace'] >= i) & (df['pace'] < i + 0.5)])
-        if (bucket_length >= 10):
-            new_row = {'pace': str(i) +':' + str(i+0.5), 'count':bucket_length}
+        if (bucket_length/total_len >= 0.05):
+        #if (bucket_length >= 10):
+            new_row = {'pace': str(i) +'-' + str(i+0.5), 'count':bucket_length}
             #pace_data[str(i) +':' + str(i+0.5)] = bucket_length
             pace_df = pace_df.append(new_row, ignore_index=True)
 
@@ -206,10 +209,13 @@ def hr_dist(df, data):
 
     hr_df = pd.DataFrame(columns=['hr', 'count'])
 
+    total_len = len(df)
+
     for i in range(0, max_hr_round, 10):
         bucket_length = len(df[(df['hr'] >= i) & (df['hr'] < i + 10)])
-        if (bucket_length >= 10):
-            new_row = {'hr': str(i) +':' + str(i+10), 'count':bucket_length}
+        if (bucket_length/total_len >= 0.05):
+        #if (bucket_length >= 10):
+            new_row = {'hr': str(i) +'-' + str(i+10), 'count':bucket_length}
             hr_df = hr_df.append(new_row, ignore_index=True)
 
     hr_count_sum = hr_df['count'].sum()
@@ -235,7 +241,7 @@ def getAltChange(alt_list):
 def split_table(df, data):
     max_dist = df['total_dist'].max()
 
-    splits_df = pd.DataFrame(columns=['mile', 'pace', 'hr', 'alt'])
+    splits_df = pd.DataFrame(columns=['split (mi)', 'pace (min/mi)', 'hr (bpm)', 'gain (m)'])
 
     for i in np.arange(0, max_dist):
         split = df[(df['total_dist'] >= i) & (df['total_dist'] < i + 1) ]
@@ -247,7 +253,7 @@ def split_table(df, data):
         if(mile > max_dist):
             mile = max_dist - i
         
-        new_row = {'mile': mile, 'pace': split_pace, 'hr': split_hr, 'alt': split_alt}
+        new_row = {'split (mi)': mile, 'pace (min/mi)': split_pace, 'hr (bpm)': split_hr, 'gain (m)': split_alt}
         splits_df = splits_df.append(new_row, ignore_index = True)
         
     splits_df = splits_df.round(2)

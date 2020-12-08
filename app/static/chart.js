@@ -27,7 +27,8 @@ function splitTable(data, div){
 function hrDist(data, div){
     var width = 350;
     var height = 350;
-    var radius = Math.min(width, height) / 2;
+    var margin = 60;
+    var radius = Math.min(width, height) / 2 - margin;
     var donutWidth = 75; 
 
     var color = d3.scale.ordinal()
@@ -40,23 +41,85 @@ function hrDist(data, div){
         .attr('height', height)
         .append('g')
         .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
-   var arc = d3.svg.arc()
+
+    var arc = d3.svg.arc()
         .innerRadius(radius - donutWidth)
         .outerRadius(radius);
+
+    var outerArc = d3.svg.arc()
+        .innerRadius(radius * 0.9)
+        .outerRadius(radius * 0.9);
+
    var pie = d3.layout.pie()
         .value(function (d) {
              return d.percentage;
         })
         .sort(null);
+
    var path = svg.selectAll('path')
         .data(pie(data))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', function (d) {
-             return color(d.data.hr);
+        .enter().append('path')
+            .on("mouseover", d => mouseover(d))
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout)
+            .attr('d', arc)
+            .attr('fill', function (d) {
+                return color(d.data.hr);
+            })
+            .attr('transform', 'translate(0, 0)')
+
+    svg
+    .selectAll('allPolylines')
+    .data(pie(data))
+    .enter()
+    .append('polyline')
+        .attr("stroke", "black")
+        .style("fill", "none")
+        .attr("stroke-width", 1)
+        .attr('points', function(d) {
+        var posA = arc.centroid(d) 
+        var posB = outerArc.centroid(d) 
+        var posC = outerArc.centroid(d); 
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
+        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
+        return [posA, posB, posC]
+        });
+        
+    svg
+    .selectAll('allLabels')
+    .data(pie(data))
+    .enter()
+    .append('text')
+        .text( function(d) { console.log(d.data.hr) ; return d.data.hr } )
+        .attr('transform', function(d) {
+            var pos = outerArc.centroid(d);
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+            return 'translate(' + pos + ')';
         })
-        .attr('transform', 'translate(0, 0)')
+        .style('text-anchor', function(d) {
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+            return (midangle < Math.PI ? 'start' : 'end')
+        });
+
+    var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("display", "none");
+    
+    function mouseover(d) {
+        div.style("display", "inline");
+        div.text(d.data.percentage)
+    }
+        
+    function mousemove() {
+        div
+            .style("left", (d3.event.pageX - 34) + "px")
+            .style("top", (d3.event.pageY - 12) + "px");
+    }
+        
+    function mouseout() {
+        div.style("display", "none");
+    }
 
 };
 
@@ -64,7 +127,8 @@ function hrDist(data, div){
 function paceDist(data, div){
     var width = 350;
     var height = 350;
-    var radius = Math.min(width, height) / 2;
+    var margin = 60;
+    var radius = Math.min(width, height) / 2 - margin;
     var donutWidth = 75; 
 
     var color = d3.scale.ordinal()
@@ -77,23 +141,86 @@ function paceDist(data, div){
         .attr('height', height)
         .append('g')
         .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+
    var arc = d3.svg.arc()
         .innerRadius(radius - donutWidth)
         .outerRadius(radius);
+
+    var outerArc = d3.svg.arc()
+        .innerRadius(radius * 0.9)
+        .outerRadius(radius * 0.9);
+
    var pie = d3.layout.pie()
         .value(function (d) {
              return d.percentage;
         })
         .sort(null);
+
    var path = svg.selectAll('path')
         .data(pie(data))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', function (d, i) {
-             return color(d.data.pace);
+        .enter().append('path')
+            .on("mouseover", d => mouseover(d))
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout)
+            .attr('d', arc)
+            .attr('fill', function (d, i) {
+                return color(d.data.pace);
+            })
+            .attr('transform', 'translate(0, 0)');
+
+    svg
+    .selectAll('allPolylines')
+    .data(pie(data))
+    .enter()
+    .append('polyline')
+        .attr("stroke", "black")
+        .style("fill", "none")
+        .attr("stroke-width", 1)
+        .attr('points', function(d) {
+        var posA = arc.centroid(d) 
+        var posB = outerArc.centroid(d) 
+        var posC = outerArc.centroid(d); 
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
+        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
+        return [posA, posB, posC]
+        });
+
+    svg
+    .selectAll('allLabels')
+    .data(pie(data))
+    .enter()
+    .append('text')
+        .text( function(d) { console.log(d.data.pace) ; return d.data.pace } )
+        .attr('transform', function(d) {
+            var pos = outerArc.centroid(d);
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+            return 'translate(' + pos + ')';
         })
-        .attr('transform', 'translate(0, 0)')
+        .style('text-anchor', function(d) {
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+            return (midangle < Math.PI ? 'start' : 'end')
+        });
+
+
+        var div = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("display", "none");
+        
+        function mouseover(d) {
+            div.style("display", "inline");
+            div.text(d.data.percentage)
+        }
+            
+        function mousemove() {
+            div
+                .style("left", (d3.event.pageX - 34) + "px")
+                .style("top", (d3.event.pageY - 12) + "px");
+        }
+            
+        function mouseout() {
+            div.style("display", "none");
+        }
 
 };
 
