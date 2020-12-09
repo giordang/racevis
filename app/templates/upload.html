@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <div>
-            <h1>
-                Select .gpx file
-            </h1>
-        </div>
-
-        <div>
-        <form id="form" method='POST' action="{{ url_for('process') }}" enctype = "multipart/form-data">
-            <div>
-                <input type="file" value="" name="file">
-                <input type="submit" value="Submit">
+        <div id="row_upload">
+            <div id="title">
+                <h1>
+                    run<br>vis
+                </h1>
             </div>
-        </form>
+
+            <div id="not_title">
+                <h2>
+                    select .gpx file
+                </h2>
+
+                <form id="form" method='POST' action="{{ url_for('process') }}" enctype = "multipart/form-data">
+                        <input type="file" value="" name="file">
+                        <br>
+                        <input type="submit" value="Submit">
+                </form>
+            </div>
         </div>
 
     </body>

@@ -190,3 +190,36 @@ path {
 .line_alt {
     stroke: gray;
 }
+
+#row_upload {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+#title {
+    padding-left: 10px;
+    margin-right: 40px;
+    width: 50%;
+    font-size: 60px;
+    color: white;
+    text-align: left;
+    line-height: 150%;
+	background-color: #ef0195;
+    border-radius: 8px;
+    border-color: black;
+    border-width: 10px;
+    border-style: solid;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+#title h1 {
+    margin-bottom: 10%;
+    margin-top: 20%;
+}
+
+#not_title {
+    padding-top: 40px;
+    width: 50%;
+}
