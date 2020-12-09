@@ -276,7 +276,7 @@ function lineAltHrPace(data, div){
     y0.domain(d3.extent(data, function(d) { return d.alt; }));
     y1.domain(d3.extent(data, function(d) { return d.hr; }));
     y2.domain(d3.extent(data, function(d) { return d.pace; }));
-    
+
     svg.append("path")		
         .attr("class", "line_alt")
         .attr("d", valueline0(data)); //altitude
@@ -288,26 +288,15 @@ function lineAltHrPace(data, div){
     svg.append("path")		
         .attr("class", "line_pace")
         .attr("d", valueline2(data)); //pace
+
+    svg.append("circle").attr("cx",10).attr("cy",10).attr("r", 6).style("fill", "gray")
+    svg.append("circle").attr("cx",10).attr("cy",30).attr("r", 6).style("fill", "tomato")
+    svg.append("circle").attr("cx",10).attr("cy",50).attr("r", 6).style("fill", "steelblue")
+    svg.append("text").attr("x", 30).attr("y", 10).text("Gain (m)").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 30).attr("y", 30).text("Heart Rate(bpm)").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 30).attr("y", 50).text("Pace (min/mi)").style("font-size", "15px").attr("alignment-baseline","middle")
     
-    /*
-    svg		
-        .selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("r", 10)
-        .attr("cx", function(d) {
-            return x(d.total_dist)
-        })
-        .attr("cy", function(d) {
-            return y(d.alt)
-        })
-        .on("mouseover", function(d,i) {
-            label.style("transform", "translate("+ x(d.total_dist) +"px," + (y(d.alt)) +"px)")
-            label.text(d.alt)
-        });   
-    */
-    
+
     svg.append("g")		
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
@@ -315,16 +304,19 @@ function lineAltHrPace(data, div){
     
     svg.append("g")			
         .attr("class", "y axis")
+        .style("fill", "gray") 
         .call(yAxis0);
 
     svg.append("g")			
         .attr("class", "y axis")
         .attr("transform", "translate(" + width + ",0)")
+        .style("fill", "tomato") 
         .call(yAxis1);
 
     svg.append("g")			
         .attr("class", "y axis")
         .attr("transform", "translate(" + width + ",0)")
+        .style("fill", "steelblue") 
         .call(yAxis2);
 
 };

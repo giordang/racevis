@@ -177,11 +177,7 @@ path {
 .label {
       position:absolute;
 }
-  
-circle {
-      cursor: pointer;
-      fill: steelblue;
-}
+
 
 .line_pace {
     stroke: steelblue;
