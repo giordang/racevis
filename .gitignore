@@ -1,6 +1,5 @@
 .DS_Store
 __pycache__/
 app/__pycache__/
-config.py
 venv/
 racevis_env/
