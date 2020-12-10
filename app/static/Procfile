@@ -1,1 +1,1 @@
-web: gunicorn runvis.py:app
+web: gunicorn runvis:app
