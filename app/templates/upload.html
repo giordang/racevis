@@ -13,16 +13,27 @@
 
             <div id="not_title">
                 <h2>
-                    select .gpx file
+                    upload .gpx file
                 </h2>
 
                 <form id="form" method='POST' action="{{ url_for('process') }}" enctype = "multipart/form-data">
-                        <input type="file" value="" name="file">
+                        <input type="file" value="" name="file" id="file" hidden/>
+                        <label for="file">select file</label>
+                        <span id="file-name">no file chosen</span>
                         <br>
-                        <input type="submit" value="Submit">
+                        <input type="submit" value="submit" id="submit">
                 </form>
             </div>
         </div>
 
+        <script type="text/javascript">
+            const realButton = document.getElementById('file');
+
+            const fileName = document.getElementById('file-name');
+
+            realButton.addEventListener('change', function(){
+                fileName.textContent = this.files[0].name
+            })
+        </script>
     </body>
 </html>

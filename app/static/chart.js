@@ -19,7 +19,6 @@ function splitTable(data, div){
             cell.appendChild(text);
         }
     }
-
 };
 
 
@@ -29,11 +28,22 @@ function hrDist(data, div){
     var height = 350;
     var margin = 60;
     var radius = Math.min(width, height) / 2 - margin;
-    var donutWidth = 75; 
+    var donutWidth = 65; 
 
     var color = d3.scale.ordinal()
         .domain(data)
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+        .range([
+            "#fbe7eb",
+            "#f4b8c4",
+            "#ed899d",
+            "#e65a76",
+            "#df2b4f",
+            "#dc143c",
+            "#b01030",
+            "#840c24",
+            "#580818",
+            "#2c040c"
+            ]);
 
     var svg = d3.select(div)
         .append('svg')
@@ -69,38 +79,40 @@ function hrDist(data, div){
             .attr('transform', 'translate(0, 0)')
 
     svg
-    .selectAll('allPolylines')
-    .data(pie(data))
-    .enter()
-    .append('polyline')
-        .attr("stroke", "black")
-        .style("fill", "none")
-        .attr("stroke-width", 1)
-        .attr('points', function(d) {
-        var posA = arc.centroid(d) 
-        var posB = outerArc.centroid(d) 
-        var posC = outerArc.centroid(d); 
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
-        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
-        return [posA, posB, posC]
-        });
+        .selectAll('allPolylines')
+        .data(pie(data))
+        .enter()
+        .append('polyline')
+            .attr("stroke", "black")
+            .style("fill", "none")
+            .attr("stroke-width", 1)
+            .attr('points', function(d) {
+            var posA = arc.centroid(d) 
+            var posB = outerArc.centroid(d) 
+            var posC = outerArc.centroid(d); 
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
+            posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
+            return [posA, posB, posC]
+            });
         
     svg
-    .selectAll('allLabels')
-    .data(pie(data))
-    .enter()
-    .append('text')
-        .text( function(d) { console.log(d.data.hr) ; return d.data.hr } )
-        .attr('transform', function(d) {
-            var pos = outerArc.centroid(d);
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-            return 'translate(' + pos + ')';
-        })
-        .style('text-anchor', function(d) {
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            return (midangle < Math.PI ? 'start' : 'end')
-        });
+        .selectAll('allLabels')
+        .data(pie(data))
+        .enter()
+        .append('text')
+            .style("font-size", "16px")
+            .attr("font-weight", 700)
+            .text( function(d) { return d.data.hr } )
+            .attr('transform', function(d) {
+                var pos = outerArc.centroid(d);
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+                return 'translate(' + pos + ')';
+            })
+            .style('text-anchor', function(d) {
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                return (midangle < Math.PI ? 'start' : 'end')
+            });
 
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
@@ -108,7 +120,7 @@ function hrDist(data, div){
     
     function mouseover(d) {
         div.style("display", "inline");
-        div.text(d.data.percentage)
+        div.text(d.data.percentage + "%")
     }
         
     function mousemove() {
@@ -121,7 +133,14 @@ function hrDist(data, div){
         div.style("display", "none");
     }
 
+    svg.append("text")
+        .attr("text-anchor", "middle")
+        .attr('y', 8)
+        .style("font-size", "20px")
+        .attr("font-weight", 700)
+        .text("heart rate");
 };
+
 
 //adapted from https://medium.com/@kj_schmidt/making-an-animated-donut-chart-with-d3-js-17751fde4679
 function paceDist(data, div){
@@ -129,11 +148,22 @@ function paceDist(data, div){
     var height = 350;
     var margin = 60;
     var radius = Math.min(width, height) / 2 - margin;
-    var donutWidth = 75; 
+    var donutWidth = 65; 
 
     var color = d3.scale.ordinal()
         .domain(data)
-        .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
+        .range([
+            "#ecf2f7",
+            "#c7d9e8",
+            "#a2c0d9",
+            "#7da7ca",
+            "#588ebb",
+            "#4682b4",
+            "#386890",
+            "#2a4e6c",
+            "#1c3448",
+            "#0e1a24"
+            ]);
 
     var svg = d3.select(div)
         .append('svg')
@@ -169,38 +199,40 @@ function paceDist(data, div){
             .attr('transform', 'translate(0, 0)');
 
     svg
-    .selectAll('allPolylines')
-    .data(pie(data))
-    .enter()
-    .append('polyline')
-        .attr("stroke", "black")
-        .style("fill", "none")
-        .attr("stroke-width", 1)
-        .attr('points', function(d) {
-        var posA = arc.centroid(d) 
-        var posB = outerArc.centroid(d) 
-        var posC = outerArc.centroid(d); 
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
-        posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
-        return [posA, posB, posC]
-        });
+        .selectAll('allPolylines')
+        .data(pie(data))
+        .enter()
+        .append('polyline')
+            .attr("stroke", "black")
+            .style("fill", "none")
+            .attr("stroke-width", 1)
+            .attr('points', function(d) {
+            var posA = arc.centroid(d) 
+            var posB = outerArc.centroid(d) 
+            var posC = outerArc.centroid(d); 
+            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 
+            posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); 
+            return [posA, posB, posC]
+            });
 
     svg
-    .selectAll('allLabels')
-    .data(pie(data))
-    .enter()
-    .append('text')
-        .text( function(d) { console.log(d.data.pace) ; return d.data.pace } )
-        .attr('transform', function(d) {
-            var pos = outerArc.centroid(d);
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-            return 'translate(' + pos + ')';
-        })
-        .style('text-anchor', function(d) {
-            var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            return (midangle < Math.PI ? 'start' : 'end')
-        });
+        .selectAll('allLabels')
+        .data(pie(data))
+        .enter()
+        .append('text')
+            .style("font-size", "16px")
+            .attr("font-weight", 700)
+            .text( function(d) { return d.data.pace } )
+            .attr('transform', function(d) {
+                var pos = outerArc.centroid(d);
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+                return 'translate(' + pos + ')';
+            })
+            .style('text-anchor', function(d) {
+                var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                return (midangle < Math.PI ? 'start' : 'end')
+            });
 
 
         var div = d3.select("body").append("div")
@@ -209,7 +241,7 @@ function paceDist(data, div){
         
         function mouseover(d) {
             div.style("display", "inline");
-            div.text(d.data.percentage)
+            div.text(d.data.percentage + "%")
         }
             
         function mousemove() {
@@ -222,14 +254,21 @@ function paceDist(data, div){
             div.style("display", "none");
         }
 
+        svg.append("text")
+            .attr("text-anchor", "middle")
+            .attr('y', 8)
+            .style("font-size", "20px")
+            .attr("font-weight", 700)
+            .text("pace");
 };
+
 
 //adapted from https://bl.ocks.org/uredkar/71c3a0d93cc05527c83cdc12f9549ab3
 function lineAltHrPace(data, div){
     var label = d3.select(div);
 
-    var margin = {top: 20, right: 20, bottom: 70, left: 40};
-    var width = 800 - margin.left - margin.right;
+    var margin = {top: 20, right: 80, bottom: 70, left: 40};
+    var width = 850 - margin.left - margin.right;
     var height = 400 - margin.top - margin.bottom;
     
     var x = d3.scale.linear().range([0, width]);
@@ -290,46 +329,50 @@ function lineAltHrPace(data, div){
         .attr("d", valueline2(data)); //pace
 
     svg.append("circle").attr("cx",10).attr("cy",10).attr("r", 6).style("fill", "gray")
-    svg.append("circle").attr("cx",10).attr("cy",30).attr("r", 6).style("fill", "tomato")
+    svg.append("circle").attr("cx",10).attr("cy",30).attr("r", 6).style("fill", "crimson")
     svg.append("circle").attr("cx",10).attr("cy",50).attr("r", 6).style("fill", "steelblue")
-    svg.append("text").attr("x", 30).attr("y", 10).text("Gain (m)").style("font-size", "15px").attr("alignment-baseline","middle")
-    svg.append("text").attr("x", 30).attr("y", 30).text("Heart Rate(bpm)").style("font-size", "15px").attr("alignment-baseline","middle")
-    svg.append("text").attr("x", 30).attr("y", 50).text("Pace (min/mi)").style("font-size", "15px").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 30).attr("y", 10).text("gain (m)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
+    svg.append("text").attr("x", 30).attr("y", 30).text("heart rate (bpm)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
+    svg.append("text").attr("x", 30).attr("y", 50).text("pace (min/mi)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
     
-
     svg.append("g")		
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
+        .style("font-size", "12px")
+        .attr("font-weight", 700)
         .call(xAxis);
     
     svg.append("g")			
         .attr("class", "y axis")
         .style("fill", "gray") 
+        .style("font-size", "12px")
+        .attr("font-weight", 700)
         .call(yAxis0);
 
     svg.append("g")			
         .attr("class", "y axis")
         .attr("transform", "translate(" + width + ",0)")
-        .style("fill", "tomato") 
+        .style("fill", "crimson") 
+        .style("font-size", "12px")
+        .attr("font-weight", 700)
         .call(yAxis1);
 
     svg.append("g")			
         .attr("class", "y axis")
         .attr("transform", "translate(" + width + ",0)")
         .style("fill", "steelblue") 
+        .style("font-size", "12px")
+        .attr("font-weight", 700)
         .call(yAxis2);
-
 };
-
 
 
 //adapted from http://bl.ocks.org/Jverma/887877fc5c2c2d99be10
 function barSplitPace(data, div) {
     //canvas dimensions
-    var margin = {top: 20, right: 20, bottom: 70, left: 60};
+    var margin = {top: 40, right: 20, bottom: 70, left: 60};
     var width = 350 - margin.left - margin.right;
     var height = 350 - margin.top - margin.bottom;
-
 
     //ranges
     var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
@@ -343,14 +386,13 @@ function barSplitPace(data, div) {
         .scale(y)
         .orient("left");
 
-    //SVG
+    //svg
     var svg = d3.select(div)
         .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
         .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
     //load data
     data.forEach(function(d) {
@@ -360,7 +402,6 @@ function barSplitPace(data, div) {
 
     //scale data range
     x.domain(data.map(function(d) { return d.Split; }));
-    //y.domain([0, d3.max(data, function(d) { return d.Pace; })]);
     y.domain([d3.min(data, function(d) { return d.Pace; }) - 0.5, d3.max(data, function(d) { return d.Pace; }) + 0.2]);
 
     //add axis
@@ -369,6 +410,8 @@ function barSplitPace(data, div) {
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
         .selectAll("text")
+            .style("font-size", "12px")
+            .attr("font-weight", 700)
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", "-.55em")
@@ -381,6 +424,8 @@ function barSplitPace(data, div) {
             .attr("transform", "rotate(-90)")
             .attr("y", 5)
             .attr("dy", ".71em")
+            .style("font-size", "12px")
+            .attr("font-weight", 700)
             .style("text-anchor", "end")
 
     //add bars
@@ -402,7 +447,9 @@ function barSplitPace(data, div) {
         .attr("y", -40)
         .attr("x", -55)
         .attr("transform", "rotate(-90)")
-        .text("Average Pace (min/mile)");
+        .style("font-size", "18px")
+        .attr("font-weight", 700)
+        .text("average pace (min/mile)");
 
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
@@ -422,15 +469,22 @@ function barSplitPace(data, div) {
     function mouseout() {
         div.style("display", "none");
     }
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 5 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "24px") 
+        .attr("font-weight", 700)
+        .text("pace splits");
 };
 
 
 function barSplitHR(data, div) {
     //canvas dimensions
-    var margin = {top: 20, right: 20, bottom: 70, left: 60};
+    var margin = {top: 40, right: 20, bottom: 70, left: 60};
     var width = 350 - margin.left - margin.right;
     var height = 350 - margin.top - margin.bottom;
-
 
     //ranges
     var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
@@ -469,6 +523,8 @@ function barSplitHR(data, div) {
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
         .selectAll("text")
+            .style("font-size", "12px")
+            .attr("font-weight", 700)
             .style("text-anchor", "end")
             .attr("dx", "-.8em")
             .attr("dy", "-.55em")
@@ -482,6 +538,8 @@ function barSplitHR(data, div) {
             .attr("y", 5)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
+            .style("font-size", "12px")
+            .attr("font-weight", 700);
 
     //add bars
     svg.selectAll("bar")
@@ -502,7 +560,9 @@ function barSplitHR(data, div) {
         .attr("y", -40)
         .attr("x", -45)
         .attr("transform", "rotate(-90)")
-        .text("Average Heart Rate (bpm)");
+        .style("font-size", "18px")
+        .attr("font-weight", 700)
+        .text("average heart rate (bpm)");
 
     var div = d3.select("body").append("div")
         .attr("class", "tooltip")
@@ -523,4 +583,12 @@ function barSplitHR(data, div) {
         div.style("display", "none");
     
     }
+
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 5 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "24px") 
+        .attr("font-weight", 700)
+        .text("heart rate splits");
 };

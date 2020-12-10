@@ -13,9 +13,6 @@ def make_df(f):
 
     data = gpx.tracks[0].segments[0].points
 
-    start = data[0] #first data point
-    finish = data[-1] #last data point
-
     nonext = pd.DataFrame(columns=['lon', 'lat', 'alt', 'time']) #initialize empty df
 
     for point in data: #reformat time variable
@@ -104,13 +101,13 @@ def split_vis(df, data):
 
     split1_meanpace = round(df[df['total_dist'] < midpoint]['pace'].mean(),2)
     split2_meanpace = round(df[df['total_dist'] > midpoint]['pace'].mean(),2)
-    splits_pace_python = [{'Split': 'First Half', 'Pace': split1_meanpace}, {'Split': 'Second Half', 'Pace': split2_meanpace}]
+    splits_pace_python = [{'Split': '1st Half', 'Pace': split1_meanpace}, {'Split': '2nd Half', 'Pace': split2_meanpace}]
     splits_pace_json = json.dumps(splits_pace_python)
     data['splits_pace'] = splits_pace_json
 
     split1_meanhr = round(df[df['total_dist'] < midpoint]['hr'].mean(),2)
     split2_meanhr = round(df[df['total_dist'] > midpoint]['hr'].mean(),2)
-    splits_hr_python = [{'Split': 'First Half', 'HR': split1_meanhr}, {'Split': 'Second Half', 'HR': split2_meanhr}]
+    splits_hr_python = [{'Split': '1st Half', 'HR': split1_meanhr}, {'Split': '2nd Half', 'HR': split2_meanhr}]
     splits_hr_json = json.dumps(splits_hr_python)
     data['splits_hr'] = splits_hr_json
 
@@ -187,9 +184,7 @@ def pace_dist(df, data):
     for i in np.arange(min_pace_round, max_pace_round + 0.51, 0.5):
         bucket_length = len(df[(df['pace'] >= i) & (df['pace'] < i + 0.5)])
         if (bucket_length/total_len >= 0.05):
-        #if (bucket_length >= 10):
             new_row = {'pace': str(i) +'-' + str(i+0.5), 'count':bucket_length}
-            #pace_data[str(i) +':' + str(i+0.5)] = bucket_length
             pace_df = pace_df.append(new_row, ignore_index=True)
 
     pace_count_sum = pace_df['count'].sum()
@@ -214,7 +209,6 @@ def hr_dist(df, data):
     for i in range(0, max_hr_round, 10):
         bucket_length = len(df[(df['hr'] >= i) & (df['hr'] < i + 10)])
         if (bucket_length/total_len >= 0.05):
-        #if (bucket_length >= 10):
             new_row = {'hr': str(i) +'-' + str(i+10), 'count':bucket_length}
             hr_df = hr_df.append(new_row, ignore_index=True)
 
@@ -266,8 +260,6 @@ def split_table(df, data):
 
 def vis_fun(file):
     df = make_df(file)
-    #df_time_index = df.set_index('time')
-    #df_dist_index = df.set_index('total_dist')
 
     data = {}
     
@@ -281,6 +273,5 @@ def vis_fun(file):
     data = pace_dist(df, data)
     data = hr_dist(df, data)
     data = split_table(df, data)
-    #print(data)
 
     return(data)

@@ -7,31 +7,30 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
-
 </head>
 
 <body>
     <div id="row_title_sum">
         <h1>{{data.title | safe}}</h1>
         <ul>
-            <li>Time: {{ data.total_time | safe }}</li>
-            <li>Distance: {{ data.total_distance | safe }} mi</li>
-            <li>Pace: {{ data.avg_pace | safe }} min/mi</li>
+            <li><b>time:</b> {{ data.total_time | safe }}</li>
+            <li><b>distance:</b> {{ data.total_distance | safe }} mi</li>
+            <li><b>pace:</b> {{ data.avg_pace | safe }} min/mi</li>
             <br>
-            <li>Average Heart Rate: {{ data.avg_hr | safe }} bpm</li>
-            <li>Elevation Gain: {{ data.total_gain | safe }} m</li>
+            <li><b>average heart rate:</b> {{ data.avg_hr | safe }} bpm</li>
+            <li><b>elevation gain:</b> {{ data.total_gain | safe }} m</li>
         </ul>
     </div>
 
     <div id="map">
     </div>
-    
-    <div id="alt_hr_pace_chart">
-    </div>
 
     <div id="split_table">
         <table>
         </table>
+    </div>
+
+    <div id="alt_hr_pace_chart">
     </div>
 
     <div id="row_split_charts">
@@ -154,8 +153,6 @@
 
         var splitTableData = {{data.split_table | safe}};
         splitTable(splitTableData, "split_table");
-
-
     </script>
 
 </body>
