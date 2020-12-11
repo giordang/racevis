@@ -331,7 +331,7 @@ function lineAltHrPace(data, div){
     svg.append("circle").attr("cx",10).attr("cy",10).attr("r", 6).style("fill", "gray")
     svg.append("circle").attr("cx",10).attr("cy",30).attr("r", 6).style("fill", "crimson")
     svg.append("circle").attr("cx",10).attr("cy",50).attr("r", 6).style("fill", "steelblue")
-    svg.append("text").attr("x", 30).attr("y", 10).text("gain (m)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
+    svg.append("text").attr("x", 30).attr("y", 10).text("elevation (m)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
     svg.append("text").attr("x", 30).attr("y", 30).text("heart rate (bpm)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
     svg.append("text").attr("x", 30).attr("y", 50).text("pace (min/mi)").style("font-size", "15px").attr("alignment-baseline","middle").attr("font-weight", 700)
     
